@@ -18,8 +18,9 @@ indukcja
 2. często wyciągamy błędne wnioski
 3. uczenie (na podstawie doświadczeń wyciągamy wiedzę, która jest tylko tak dobra jak doświadczenia)
 
-wnioskowanie vs uczenie::wnioskowanie: baza wiedzy->twierdzenia ->prawdziwe wnioski(bo z dedukcji)
-?
+wnioskowanie vs uczenie
+
+wnioskowanie: baza wiedzy->twierdzenia ->prawdziwe wnioski(bo z dedukcji)
 uczenie:wnioskowanie statystyczne z uogólnieniami i indukcją ->powstają reguły np. Dużo stworzeń morskich składa jaja, więc wszystkie stworzenia morskie to robią(nieprawdziwe)
 
 2 metody wnioskowanie dedukcyjnego
@@ -197,8 +198,10 @@ Ocena strategii przeszukiwania
 ●       Złożoność
 	o   Czasowa w najgorszym przypadku – maksymalna długość ścieżki, maksymalny/średni współczynnik rozgałęzienia do przodu (ile łuków wychodzi z danego węzła, rozgałęzienie wstecz to ile wchodzi do węzła)
 	o   Pamięciowa w najgorszym przypadku – maksymalna liczba węzłów na froncie
-	strategia przeszukiwania  - W głąb(DFS)
-	
+
+
+strategia przeszukiwania  - W głąb(DFS)
+?
 ![[Pasted image 20240630101006.png]]
 - kolejka to stos - filo
 - niekompletny i nieoptymalny
@@ -553,7 +556,7 @@ Heurystyka kolejności sprawdzania zmienny i wartości
 	- redukcja wsp. rozgałęzienia
 	- powiązana z największą liczbą innych zmiennych
 3. Heurystyka najmniej ograniczającej zmiennej
-	- powiązana z największą liczbą innych zmiennych
+	- powiązana z najmniejszą liczbą innych zmiennych
 
 **CSP (Constraint Satisfaction Problems)**
 ?
@@ -609,9 +612,10 @@ heurystyki dystrybucji
 
 ●       **Specjalne typy więzów**:
 ?
-	○       **Alldiff**: Wszystkie zmienne muszą mieć różne wartości.
-	○       **Atmost**: Warunek dotyczący sumy zasobów, np. nie więcej niż 10 jednostek zasobów przypisanych do pewnych zmiennych
-	
+	○    Alldiff Wszystkie zmienne muszą mieć różne wartości.
+	○    Atmost Warunek dotyczący sumy zasobów, np. nie więcej niż 10 jednostek zasobów przypisanych do pewnych zmiennych
+
+
 ●       rejestracja(jak się objawia wynik progpagacji) wyników propagacji(ograniczeń)
 ?
 	○       ograniczanie dziedziny (domain propagation)
@@ -656,7 +660,7 @@ Powody stworzenia agenta logicznego jako metody rozwiązywania problemów:
 3.      Jeden cel (‘typ’) celu – mimo rozbicia realizacji na etapy
 
 Techniki dostępne dla agenta logicznego:
-?    
+?
 1.      Przeszukiwanie
 2.      Reprezentacja wiedzy o środowiska
 	a.      Opis deklaratywny
@@ -718,7 +722,7 @@ Wniosek? Profesor uczy, dlatego jest nieszczęśliwy (czyli tak samo jak student
 
 Dopasowanie(logika)
 ?
-- podejście symbolicznego dopasowania, it przypisuje równość (equality) prawdziwych wyrażeń (zdań), realizowane zwykle przez mechanizm wnioskujący
+- podejście symbolicznego dopasowania, przypisuje równość (equality) prawdziwych wyrażeń (zdań), realizowane zwykle przez mechanizm wnioskujący
 
 Forward Chaining
 ?
@@ -810,3 +814,175 @@ o   Jest_elementem
 o   Jest_podzbiorem
 o   …
 ![[Pasted image 20240701214025.png]]
+
+
+## 5. Wprowadzenie do uczenia maszynowego – przykład drzew decyzyjnych
+
+Machine Learning
+?
+Programy, które potrafią automatycznie polepszać swoje działanie w miarę nabywania doświadczenia.
+
+Uczenie indukcyjne
+?
+poprzez wyszukiwanie uogólnień np.:
+![[Pasted image 20240701234438.png]]
+
+Uczenie pojęć definicja
+?
+zbieranie tego jak kategoryzować dane na podstawie pozytywnych i negatywnych przykładów testowych
+
+Uczenie się pojęć z nadzorem
+?
+-        pojęcia służą do klasyfikacji obiektów na grupy - kategorie
+-        Posiadamy dane, które mają swoje etykiety. Na przykład mamy 100 zdjęć i każde ma nazwę “kot” lub “pies”.
+-        podstawowo rozróżnianie dwóch klas / etykiet -> np. Osoba jest chora lub osoba jest zdrowa
+
+tworzenie pojęć bez nadzoru
+?
+-  szukanie uogólnień
+-        kategorie nie są znane -> obserwacja nieetykietowanych przykładów
+-        grupowanie obiektów w kategorie zgodnie z kryteriami podobieństwa
+-        podział przykładów trenujących na grupy odpowiadające kategoriom
+-        uczenie się pojęć odpowiadających tworzonym kategoriom, aby było możliwe klasyfikowanie nowych przykładów
+-        np. mamy dane dotyczące mieszkań, lecz nie mamy ich cen, więc mądry komputer samemu umieszcza nasze dane jako punkty na wielowymiarowej przestrzenii i na tej podstawie je kategoryzuje. Mądry komputer sam stwierdzi “O, ta grupa mieszkań ma dużo pokojów i duży metraż, więc będą blisko siebie w wielowymiarowej przestrzeni. To mieszkanie ma mało  pokojów i jest daleko od centrum, dobra, to będzie raczej się znajdować daleko od tamtej grupy”.
+
+pojęcie(w maszynowym uczeniu)
+?
+Pojęcie (concept) w kontekście uczenia maszynowego odnosi się do abstrakcyjnej reprezentacji zbioru obiektów lub przypadków, które mają wspólne cechy lub właściwości. Pojęcie jest tym, co staramy się nauczyć lub zrozumieć, na podstawie danych. **Alfabet, Owoc**
+
+Kategoria
+?
+Kategoria (category) odnosi się do grupy obiektów, które są klasyfikowane razem na podstawie określonych kryteriów lub cech. Kategorie są zbiorem przykładów, które spełniają określone warunki i są traktowane jako podobne w kontekście danego pojęcia. **Litera “n”, banan**
+
+uczenie się aproksymacji funkcji
+?
+system który uczy się maszynowo ma wygenerować funkcję dobrze aproksymującą funkcję docelową, jej zbiór wartości to liczby rzeczywiste
+
+obciążenie indukcyjne(bias) - w maszynowym uczeniu
+?
+w uczeniu maszynowym to uprzedzenia lub założenia wprowadzone do modelu uczącego się, które mają na celu uproszczenie procesu nauki i pomagają w podejmowaniu decyzji, **gdy dane treningowe nie są wystarczające do jednoznacznego określenia hipotezy.**
+
+
+3 zbiory do maszynowego uczenia
+?
+trenujący
+testowy
+do dostrajania
+
+K-krotna walidacja krzyżowa (K-fold cross-validation)
+?
+technika oceny modelu, polegająca na podziale danych na K równych części (folds).
+1. **Podział danych:** Dane są dzielone na K części.
+2. **Iteracyjne trenowanie i testowanie:** Model jest trenowany K razy, za każdym razem używając jednej części jako zestawu testowego, a pozostałych K-1 części jako zestawu treningowego.
+3. **Średnia wyników:** Wyniki z K iteracji są średnią, co daje końcową ocenę modelu.
+Dzielimy sobie nasze dane na 10 setów.
+Na początku ostatni testuje, reszta trenuje. Sprawdzamy jakie były wyniki i zapisujemy
+![[Pasted image 20240702001550.png]]
+później pierwszy testuje, pozostałe trenują. Sprawdzamy jakie były wyniki i zapisujemy
+![[Pasted image 20240702001554.png]]
+Później drugi testuje, pozostałe trenują. Sprawdzamy jakie były wyniki i zapisujemy
+![[Pasted image 20240702001559.png]]
+Później trzeci testuje….
+Na końcu robimy średnią wyników.
+
+drzewo decyzyjne - elementy
+?
+●       **węzeł** – na rysunku elipsy lub prostokąty. W węźle znajduje się zawsze albo test na wartość pewnego atrybutu (np. elipsa ’Student’, odpowiadająca pytaniu, czy klient był  studentem), albo klasa decyzyjna (tutaj prostokąty ’TAK’, ’NIE’). Konkretne figury geometryczne zostały wprowadzone tylko by ułatwić rozróżnianie węzłów, tzn. nie są elementem konwencji.
+●       **krawędź** – łączy dwa węzły, przy czym strzałka określa kierunek połączenia (i zawsze wskazuje w dół, jeżeli korzeń jest na górze). Z każdą krawędzią związana jest pewna etykieta, np. niskie, średnie, tak, nie. Etykiety to możliwe wartości atrybutu związanego z węzłem, z którego wyszła ta krawędź.
+●       **liść** – taki węzeł, z którego nie wychodzi żadna krawędź. W liściu zawsze znajdować się będzie przypisanie do jakiejś klasy decyzyjnej, w tym wypadku do ’TAK’ albo ’NIE’. Na rysunku liście to węzły w kształcie prostokątów.
+●       **korzeń** – od korzenia drzewo zaczyna rosnąć. Jest to węzeł, do którego nie dochodzi żadna krawędź, czyli w tym wypadku Dochody.
+
+Wnioskowanie (klasyfikacja)
+?
+- określenie przynależności obiektu do klasy
+- Proces wyciągania logicznych wniosków z dostępnych informacji, danych lub przesłanek.
+Czyli mamy nauczone drzewo i bierzemy nasz obiekt testowy - człowiek.  
+Sprawdzamy jakie ma dochody (średnie), to wybieramy środkową strzałkę i lecimy dalej.  
+Sprawdzamy czy student (tak), to wybieramy lewą strzałkę i mamy odpowiedź. Przejście po algorytmie jest banalnie proste, ale bardziej jajcarska w drzewach jest ich budowa.
+
+### Proces budowy drzewa decyzyjnego
+?
+1. **Wybór atrybutu:** Na każdym poziomie drzewa wybierany jest atrybut, który najlepiej dzieli zestaw danych. Kryteria wyboru mogą obejmować zysk informacyjny (information gain) lub współczynnik przyrostu informacji (gain ratio).
+2. **Podział danych:** Zestaw danych jest podzielony na podzbiory na podstawie wybranego atrybutu.
+3. **Rekurencja:** Proces jest powtarzany dla każdego podzbioru, tworząc nowe węzły wewnętrzne i liście.
+4. **Zakończenie:** Proces budowy drzewa kończy się, gdy wszystkie przykłady w podzbiorze należą do jednej klasy lub nie ma już atrybutów do podziału.
+
+## Entropia
+?
+Miara niepewności lub niejednorodności w zbiorze danych. W kontekście uczenia maszynowego, entropia służy do oceny czystości podziału danych - im wyższa entropia, tym większa niepewność (większe zmieszanie klas - to dobrze, bo oznacza, że mamy bardzo zdywersyfikowany zbiór danych, a nie dane jednego typu).
+![[Pasted image 20240702002338.png]]![[Pasted image 20240702002341.png]]
+
+
+Klasa(maszynowe uczenie)
+?
+Kategoria lub etykieta, do której dane mogą zostać przypisane. Klasa reprezentuje możliwy wynik procesu klasyfikacji.
+
+
+Kroki algorytmu ID3 (na przykładzie pogoda - gra w tenisa)
+?
+1. **Obliczanie entropii:** Dla całego zbioru danych oblicza się entropię, która mierzy niepewność lub niejednorodność klas w zbiorze danych.  
+    Obliczanie entropii początkowej na podstawie dostępnych klas. Np. z 14 dni przez 9 dni można grać, a przez 5 nie można grać w tenisa. Klasy: “Tak” oraz “Nie”
+2. **Wybór atrybutu:** Dla każdego atrybutu oblicza się zysk informacyjny, który mierzy, o ile entropia zmniejsza się po podziale danych według tego atrybutu. **_Wybiera się atrybut z najwyższym zyskiem informacyjnym.  
+    _**  
+    Obliczenie zysku informacyjnego ze względu na poszczególne atrybuty np. ze względu na pogodę. Obliczamy entropię dla pogody “Słonecznej”, “Pochmurnej” i “Deszczowej”. Bierzemy z tego średnią.  
+    **Zysk informacyjny = Entropia początkowa - średnia entropia atrybutu**
+3. **Podział danych:** Dane są podzielone na podzbiory według wartości wybranego atrybutu.
+4. **Rekurencja:** Algorytm jest rekurencyjnie stosowany do każdego podzbioru, aż wszystkie podzbiory będą jednorodne (czyli zawierają tylko jeden typ klasy) lub nie będzie już atrybutów do podziału.
+
+### Możliwości i ograniczenia ID3
+?
+●       ID3 nie pozwala na powroty: – wybrany atrybut na poszczególnym poziomie drzewa nie będzie więcej rozpatrywany,
+●        jak w hill-climbing, może to doprowadzić do zbieżności do lokalnego optimum
+●       Preferowane są krótsze drzewa,
+●       Oraz takie, które atrybuty o wysokim zysku informacyjnym plasują blisko korzenia.
+
+Problemy i modyfikacje w budowniu drzew decyzyjnych
+?
+1. Atrybuty nie determinują klasyfikacji (czyli mamy dane, z których ni chuja nie da się zbudować drzewa)
+	1. skutek – warunek zakończenia budowy drzewa nie jest nigdy spełniony;
+	2. rozwiązanie – zmiana kryterium zakończenia na: osiągnięcie jednorodnych klas w liściach  
+2. Istnieje szereg obiektów o takich samych atrybutach i klasie (czyli mamy dosłownie powtarzające się rekordy. Np. 4 studentów z oceną 3.0 z matmy, 3.0 z biolki, 3.0 z polaka)
+	1. skutek – nadmiar nic nie wnoszących danych;
+	2. rozwiązanie– wyeliminowanie na wstępie nadmiarowe dane.  
+3. Istnieją obiekty o identycznych wartościach atrybutów ale należące do różnych klas (problem podobny jak z datasetem koszulek w liście na laby. Mamy koszulki, które dla tych samych danych mają różną etykietę)
+	1. skutek i rozwiązanie dokładnie jak w pkt 1.  
+4. Istnieją obiekty z brakującymi wartościami atrybutów
+	1. skutek – niekiedy nie można policzyć entropii
+	2. rozwiązanie– obiekty z brakującymi wartościami zastąpić obiektami o wszelkich możliwych kombinacjach wartości atrybutów w miejscach braków danych.
+
+
+Nadmierne dopasowanie (overfitting)
+?
+Mamy 2 modele. h oraz h’.
+-        h jest lepsze na danych treningowych 
+-        h’ jest lepsze na danych testowych
+Oznacza to, że h jest nadmiernie dopasowany do danych testowych, czyli jest gorszy od h’, ponieważ nie generalizuje problemu wystarczająco dobrze.
+
+Jak zapobiec overfitting w drzewie decyzyjnym
+?
+●       Zatrzymać wzrost drzewa zanim osiągnie punkt, w którym perfekcyjnie klasyfikuje dane uczące.
+●        Pozwolić drzewu ,naddopasować’ dane, a później dokonać przycięcia drzewa (post-pruning).
+
+Przycinanie węzła (pruning) to(w drzewie decyzyjnym)
+?
+1.  usunięcie poddrzewa zaczynającego się w tym węźle
+2.  zrobienie go liściem
+3.  przypisanie mu najczęstszej klasy związanej z tym węzłem.
+4. Węzeł jest usuwany, jeśli otrzymane drzewo (po usunięciu analizowanego węzła) klasyfikuje nie gorzej niż wyjściowe.
+
+
+Algorytm C 4.5
+?
+●       Rozszerzenie algorytmu ID3 (Quinlan).
+●       Unikanie nadmiernego dopasowania do danych.
+●       Obsługa atrybutów o wartościach ciągłych, np., temperatury.
+●       Obsługa danych treningowych z brakującym wartościami atrybutów.
+●       Obsługa atrybutów z różnym kosztem.
+●       Poprawa efektywności obliczeniowej
+●       Podczas budowy drzewa nie uwzględnia się danych z brakującą wartością atrybutu
+
+iloraz przyrostu infromacji
+?
+![[Pasted image 20240702003449.png]]
+
+

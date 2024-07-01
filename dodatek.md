@@ -19,3 +19,32 @@ Definicje
 
 9. Funkcja - n-tka termów poprzedzonych przez symbol funkcji lub nazwę (nazywaną również funktorem) który spełnia definicję funkcji
 10. Predykat - n-tka termów, poprzedzonych przez symbol lub nazwę predykatu (mniej formalnie: Predykat to parametryzowane stwierdzenie, tzn. stwierdzenie ze zmiennymi)
+
+
+
+przykład budowy drzewa - algrotym ID3
+
+![[Pasted image 20240702002437.png]]
+![[Pasted image 20240702002443.png]]
+Mamy 2 rekordy z odpowiedzią “TAK” oraz 4 rekordy z odpowiedzią “NIE”.
+## Zysk informacyjny
+
+Konstrukcję drzewa zawsze zaczynamy od utworzenia korzenia. Sprawdzamy, czy wszystkie przykłady A,B,C,D,E,F są zaklasyfikowane do tej samej klasy decyzyjnej. W tym wypadku nie są, więc szukamy atrybutu najlepiej dzielącego przykłady ze względu na miarę entropii.
+
+1. przeanalizowaliśmy każdy rekord w zbiorze danych dla matematyki i wyszło że mamy 2 rekordy gdzie ocena z matmy to 3.0, 3 rekordy gdzie ocena to 4.0 oraz 1 rekord gdzie ocena to 5.0
+2. Tak samo jak wcześniej obliczamy entropię.
+3. Powtarzamy punkt 1 oraz 2 dla Biolki i Polak
+
+I w końcu możemy obliczyć **zysk informacyjny** – przyrost informacji o klasie
+
+1. Bierzemy entropię całego zbioru, którą obliczaliśmy w poprzednim etapie “ENTROPIA”
+2. Odejmujemy od niej entropię każdego z atrybutów po kolei
+3. Zysk informacyjny to wynik który dostajemy po odjęciu entropii całkowitej od jednego z atrybutów.
+4. Wybieramy atrybut z najwyższym zyskiem - Matme.
+
+Jak widać wybrano matematykę, jako korzeń, a następnie stworzono 3 krawędzie, dla każdej z możliwych wartości tego atrybutu - 3.0, 4.0, 5.0  
+Wyszło na to że wszystkie rekordy z 3.0 oraz z 5.0 nie mają stypendium, więc krawędzie mogą wskazać na węzeł będący liściem, mówiący “NIE”.  
+Rekordy z 4.0 niestety mają niejednoznaczną odpowiedź, więc trzeba dalej budować drzewo.
+
+Tym razem analizujemy tylko rekordy, które nie odpadły, czyli te gdzie Matma ma 4.0.  
+Znów obliczamy przyrost informacji, bierzemy kolejny węzeł itd itd.
