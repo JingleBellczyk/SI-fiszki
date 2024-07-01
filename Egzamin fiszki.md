@@ -694,7 +694,8 @@ Dedukcja(logicznie)
 
 Abdukcja
 ??
-wnioskowanie o prawdopodobnych przyczynach, jest procesem wyjaśniania tego, co jest nam już wiadome.
+- wnioskowanie o prawdopodobnych przyczynach, jest procesem wyjaśniania tego, co jest nam już wiadome.
+- Niepoprawna logicznie forma wnioskowania. Mając implikację p -> q, która jest prawdziwa wiemy, że jeżeli q jest prawdziwe to p też. Problem z abdukcją polega na tym, że atrybuty mogą nie być sensownie powiązane.
 
 Implikacja
 ??
@@ -761,3 +762,50 @@ Rezolucja
 - Dodajemy do zbioru znanych prawdziwych klauzul logicznego zaprzeczenia klauzuli  i szukamy sprzeczności
 ![[Pasted image 20240701204714.png]]
 
+Zbiór jest unifikowalny jeśli
+??
+istnieje substytucja termu(podmienienie zmiennych) czyniąca je identycznymi
+Możliwe substytucje:
+- zmienne przez stąła
+- zmienne przez zmienną
+-  zmienne przez funkcję, O ILE JEJ NIE ZAWIERA! np.
+	- P(x,f(x))
+	- P(f(y),y)P(f(y), y)P(f(y),y)
+	- Substytucja: x↦f(y)
+	- Wynik:
+	- P(f(y),f(f(y)))
+	- P(f(y),y)
+
+Reprezentacja wiedzy - Trójka
+??
+<Obiekt, Atrybut, Wartość>, np. <liść, kolor, zielony>
+
+Reprezentacja wiedzy - para
+??
+**Własność**
+Para <Obiekt, Własność>, 
+np. <Zwierzę, Oddycha>. Własność to relacja 1-go rzędu (jednoargumentowa).
+\
+Reprezentacja wiedzy - Relacja dowolnego rzędu
+??
+o   Binarna – między dwoma obiektami
+o   Wyższych rzędów – wiele relacji binarnych, np. (((A, B), C), D)
+
+Sieci semantyczne
+??
+- taka jak robot kuchenny
+- Graficzna reprezentacja wiedzy. Etykietowany digraph (węzły, łuki etykietowane). Zwykle reprezentują obiekty fizyczne/pojęcia abstrakcyjne. Łuki zwykle łączą obiekty z atrybutami.
+Definicja: Graf = (  
+Zbiór węzłów,  
+Zbiór łuków,  
+funkcja określająca uporządkowanie połączenia S -> Zbiór liczbowy wag (często jedna waga, więc jednoelementowy) x Zbiór własności)  
+)
+●       Relacje w sieci semantycznej
+o   Ma
+o   Ma_część
+o   Jest_częścią
+o   Używa
+o   Jest_elementem
+o   Jest_podzbiorem
+o   …
+![[Pasted image 20240701214025.png]]
