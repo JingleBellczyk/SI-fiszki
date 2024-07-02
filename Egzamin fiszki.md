@@ -1273,3 +1273,68 @@ Wejście: zbiór przykładów bez etykiet
 ![[Pasted image 20240702113832.png]]
 
 
+## 9. Eksploracja danych językowych: modele generatywne
+
+**Autoregresywne modele językowe**
+?
+Autoregresywne modele językowe to rodzaj modeli stosowanych w przetwarzaniu języka naturalnego (NLP), które generują sekwencje słów, przewidując kolejne słowo na podstawie wcześniejszych słów w sekwencji. Innymi słowy, te modele tworzą tekst, **przewidując jedno słowo naraz**, przy czym każda prognoza jest uzależniona od wcześniej wygenerowanych słów. Autoregresja oznacza, że model używa własnych wcześniejszych wyjść (przewidywań) jako części wejścia do prognozowania kolejnych słów.
+
+LLM
+?
+Large Language Model
+Zawiera miliardy parametrów
+
+Właściwości LLM
+?
+1. **“emergent abilities(rosnące zdolności wraz ze wzrostem)”** - zdolności, które nie występują w małych modelach, ale pojawiają się w dużych modelach
+	-  duże modele zaczynają osiągać znacznie lepsze wyniki w zadaniach, gdy osiągają odpowiednią wielkość
+2. **“In-context learning”** - generowania oczekiwanych wyników na podstawie dostarczonych **instrukcji w języku naturalnym i/lub kilku demonstracji zadań**. Innymi słowy, model może uczyć się nowych zadań bez potrzeby dodatkowego treningu, po prostu na podstawie przykładów dostarczonych jako część wejścia
+	- np Napisz to w formacie fiszek do obsydiana o tak...: - **instrukcja i demonstracja**
+	- . UWAGA! - to nie jest uczenie z definicji!!! pytanie egzaminacyjne
+3. **“Instruction following”** – odnosi się do zdolności modeli językowych do wykonywania poleceń podanych w formie instrukcji. Model uzyskuje dobrą wydajność na wcześniej niewidzianych danych, ponieważ nauczył się rozumieć i wykonywać różnorodne polecenia.
+4. **“Chain-of-thought prompting”** - Model rozwiązuje trudne problemy, korzystając z podpowiedzi zawierających kroki pośrednie, co pomaga w logicznym wnioskowaniu i osiągnięciu prawidłowego wyniku
+	- lepiej napisać co chat ma zrobić krok po kroku niż ogólnie
+![[Pasted image 20240702115508.png]]
+
+
+Chat GPT-3
+?
+- model autoregresywny
+- LLM
+- casual decoder architecture(architektura dekodera przyczynowego)
+	- **Maska uwagi jednokierunkowej**: Gwarantuje, że każdy token wejściowy może zwracać uwagę tylko na wcześniejsze tokeny i na siebie samego.
+	-  **Tokeny wejściowe/wyjściowe**: Przetwarzane w ten sam sposób przez dekoder.
+- Codex - gpt model który
+	-  ćwiczył na kodzie z githuba żeby lepiej logicznie myśleć
+	- trenował z kodem i tekstem jednocześnie, zeby odroznial te formy
+- **Uczenie ze wzmocnieniem do nauki porównań preferencji przez ludzi - w chatcie można wybrać który tekst był najtrafniejszy**
+
+
+**LLMs - Architektury 3**
+?
+1. **Architektura enkoder-dekoder**:
+    -  **enkoder** przetwarza wejściową sekwencję danych (np. zdania w języku naturalnym), a **dekoder** generuje sekwencję wyjściową (np. przetłumaczone zdanie).
+    - **Enkoder**: Składa się z wielowarstwowych warstw samouważania wielogłowicowego, co pozwala modelowi na efektywne uczenie się zależności między tokenami wejściowymi.
+    - **Dekoder**: Wykonuje krzyżową uwagę na reprezentacjach wytworzonych przez enkoder, co umożliwia generowanie sekwencji wyjściowych
+    - PO LUDZKU: oprócz tokenów które już wygenerował korzysta tez z tokenów wejściowych z enkodera
+    - **Przykłady modeli**: T5 (Text-To-Text Transfer Transformer), BART (Bidirectional and Auto-Regressive Transformer), Flan-T5.
+2. **Architektura dekodera przyczynowego**:
+    - **Maska uwagi jednokierunkowej**: Każdy token wejściowy ma dostęp tylko do informacji z wcześniejszych tokenów i do siebie samego podczas przetwarzania.
+    - **Tokeny wejściowe/wyjściowe**: Są przetwarzane w taki sam sposób przez dekoder, co umożliwia generowanie sekwencji tokenów w sposób autoregresyjny.
+    - **Przykłady modeli**: GPT-1, GPT-2, GPT-3, GPT-3.5, OPT, BLOOM, Gopher.
+3. **Architektura dekodera z prefiksem**:
+    - **Dwukierunkowa uwaga nad tokenami prefiksu**: Umożliwia dekoderowi uwzględnienie zarówno tokenów prefiksu, jak i kontekstu przyszłych tokenów podczas generowania wyjściowych sekwencji.
+    - **Kodowanie prefiksu i autoregresywne przewidywanie**: Prefiks jest kodowany dwukierunkowo, a tokeny wyjściowe są przewidywane autoregresyjnie, jeden po drugim, co przyspiesza proces generowania.
+
+dostrajanie llm oparte na uczeniu ze wzmocnieniem
+?
+![[Pasted image 20240702123743.png]]
+
+**Pretraining (wstępne trenowanie)**:
+?
+- Proces inicjowania modelu z losowymi wagami i trenowania go na dużym zbiorze danych.
+- potem uzywa sie takiego modelu z dostosowanymi wagami na innych danych
+
+**FINE-TUNING(nastrajanie)**
+?
+polega na dostosowaniu parametrów już wstępnie wytrenowanego modelu do nowego, zazwyczaj mniejszego, zbioru danych specyficznego dla danego zadania. Ten proces pozwala modelowi przenieść ogólną wiedzę, którą zdobył podczas wstępnego trenowania, do niuansów nowego zadania
