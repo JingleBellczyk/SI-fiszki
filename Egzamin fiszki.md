@@ -1134,3 +1134,142 @@ Założenia NB - czemu  głupie(nieadekwatne)?
 2. Pozycyjna niezależność - np river bank i financial bank
 
 ## 7. Case-based Reasoning & Unsupervised Learning
+
+#### Case-based Reasoning (CBR)
+?
+-  Inne nazwy: nauczanie pamięciowe / instancjonalne.
+- Mając zestaw obiektów o znanych klasach, określamy klasę nowego obiektu, znajdując najbardziej podobny przykład z zestawu treningowego i przypisując mu tę samą klasę.
+- Kluczowe pytania:
+	-  Jak ocenić podobieństwo obiektów?
+		- Porównanie atrybutów obiektów.
+		-  Użycie miar odległości np. Euklides
+		-  Wyznaczenie funkcji podobieństwa jako funkcji wektorów wartości atrybutów.
+	- Jak podobny powinien być obiekt treningowy, aby podjąć dobrą decyzję?
+		- Na tyle podobny, aby jego klasa była reprezentatywna dla nowego obiektu.
+	- Czy jeden podobny obiekt wystarczy, aby podjąć dobrą decyzję?
+		-  Raczej nie, użycie k-NN (k najbliższych sąsiadów) może prowadzić do lepszych decyzji.
+
+Reguła k-Najbliższych Sąsiadów (k-NN)
+?
+●       Idea: jeden obiekt może być mylący, więc lepiej brać pod uwagę k najbliższych sąsiadów.
+●       Proces klasyfikacji:
+1.     Zidentyfikuj k najbliższych sąsiadów x.
+2.     Przypisz x do klasy najczęściej występującej wśród tych k sąsiadów.
+●       k powinno być liczbą **nieparzystą**, aby unikać remisów.
+![[Pasted image 20240702110604.png]]
+
+Pomiar podobieństwa - 3 aposoby
+?
+1. Obiekty jako wektory cech
+	![[Pasted image 20240702110730.png]]
+2. Miara Euklidesowa
+![[Pasted image 20240702110751.png]]
+3. Ogólna miara podobieństwa - różne funkcje odległości, w zależności od typu danych atrybutów (ciągłe, dyskretne, binarne).
+![[Pasted image 20240702110847.png]]
+
+Odległość vs podobieństwo
+?
+- nie każda miara odleglosci to podobienstwo i vice versa
+Odległość:
+1. **Nieujemność odległości:** Odległość nie może być nigdy ujemna.
+2. **Tożsamość nieodróżnialnych:** Odległość między dwoma identycznymi wektorami wynosi zero.
+3.  **Symetria:** Odległość od x do y jest taka sama jak od y do x.
+4. Metryka musi spełniać nierówność trójkąta: ![[Pasted image 20240702111355.png]]
+
+#### Problemy związane z k-NN
+
+●       **Nieistotne atrybuty**: mogą zakłócać proces klasyfikacji.
+●       **Skale wartości atrybutów**: duże domeny mogą dominować nad małymi.
+●       **Normalizacja wartości atrybutów**: mapowanie do przedziału [0, 1].
+	- skutkuje to zniekształconą interpretacją atrybutów
+	- atrybuty binarne zaczynają dominować
+●       **Klątwa wymiarowości**: zwiększenie liczby atrybutów prowadzi do wzrostu kosztów obliczeniowych i wymaga więcej przykładów treningowych.
+-  **Leniwe**, ponieważ nie tworzą modelu obliczeniowego, - nie uczą sie
+- **Wysoki koszt obliczeniowy**, ponieważ wymagają obliczenia **odległości do wszystkich wzorców uczących** (których może być bardzo dużo), co daje liniowy koszt obliczeniowy w stosunku do wielkości zbioru danych uczących.
+
+
+Ważona metoda najbliższych sąsiadów (Weighted Nearest Neighbours)
+?
+Prowadzi do głosowania na temat klasyfikacji gwiazdki, biorąc pod uwagę k najbliższych sąsiadów, lecz ich głosy są **ważone w zależności od ich odległości** (dla wybranej metryki) do gwiazdki: im dalej jest głosujący wzorzec, tym ma mniejszą wagę. A więc wzorce położone najbliżej będą miały największy wpływ na wynik klasyfikacji.
+![[Pasted image 20240702111902.png]]
+
+**Nadzorowane i nienadzorowane uczenie**
+?
+●       **Nadzorowane uczenie**: wnioskowanie z przykładów z przypisanymi klasami.
+●       **Nienadzorowane uczenie**: odkrywanie użytecznych właściwości danych bez przypisanych klas, najczęściej przez grupowanie (klastry).
+
+Klastry
+?
+Klastry są grupami obiektów (np. danych), które są do siebie podobne. Właściwości klastrów obejmują różne aspekty takie jak gęstość, spójność, czy rozmiar. Ta zasada mówi, że obiekty w klastrze powinny być bliżej siebie niż obiekty z innych klastrów, co jest kluczowe dla dobrego klasyfikowania.
+
+ **Cel klastrów**:
+-  Identyfikacja grup podobnych przykładów.
+- Reprezentowanie klastrów, np. przez centroidy.
+	-  centroidem nazywamy środek masy danej figury geometrycznej
+	-  średnia atrybutów obiektów należących do danego klastra
+	-  atrybuty dyskretne muszą zostać przekształcone w liczbowe
+-  Pomiar odległości do klastrów i między nimi.
+- Przypisanie przykładu do klastra.
+
+
+strict clustering vs fuzzy clustering
+?
+- **Strict clustering (ściśle określone klastry)**: Każdy obiekt należy do jednego, wyraźnie określonego klastra. Nie ma żadnego nakładania się klastrów.
+- **Fuzzy clustering (rozmyte klastry)**: Obiekty mogą należeć do więcej niż jednego klastra z różnym stopniem przynależności, co pozwala na nakładanie się klastrów
+
+**Wewnętrzna gęstość i spójność klastrów**:
+- **Gęstość wewnętrzna**: Odnosi się do tego, jak blisko siebie są obiekty wewnątrz klastra. Im wyższa gęstość, tym obiekty są bliżej siebie.
+- **Spójność**: Odzwierciedla, na ile jednorodne lub spójne są obiekty wewnątrz klastra pod względem ich cech.
+
+**Liczba i równowaga klastrów**:
+?
+ - **Liczba klastrów**: Odnosi się do ilości klastrów używanych do podziału danych. 
+- **Równowaga klastrów**: Dotyczy równomiernego rozłożenia obiektów w różnych klastrach. Klastry są bardziej zbalansowane, gdy mają podobną liczbę obiektów.
+
+
+#### k-Means
+?
+[https://www.youtube.com/watch?v=4b5d3muPQmA](https://www.youtube.com/watch?v=4b5d3muPQmA)
+●       **Wejście**: zestaw przykładów bez etykiet klas, stała k.
+●       **Proces**:
+1.     Stwórz początkowe klastry i oblicz centroidy.
+2.     Przypisz każdy przykład do najbliższego centroidu.
+3.     Aktualizuj centroidy.(znajdz srodki  klastrów i zrob jeszcze raz klasetryzacje)
+4.     Powtarzaj, aż wszystkie przykłady znajdą się w najbliższym klastrze.
+![[Pasted image 20240702112610.png]]
+
+Jak wybrać k do k-means?
+?
+Trzeba probowac rozne wartosci i ich total variation, szukamy elbow na wykresie
+
+Problemy k-Means
+?
+●       **Normalizacja atrybutów**: konieczność ujednolicenia skali wartości.
+●       **Inicjalizacja**: losowa lub z wiedzą wstępną, wplywa to na liczbe obliczen
+
+Klastry Hierarchiczne - Kategorie:
+?
+-        top-down: wszystkie obserwacje zaczynają w jednym klastrze następnie są dzielone na mniejsze, np. hierarchical k-means
+-        bottop-up: na odwrót
+Zalety:
+-        liczba klastrów nie musi być wcześniej zdefiniowana
+
+
+klastry hierarchiczne
+?
+kryteria powiązań
+-        **single-link**: minimum z odległości: bardzo ciasne klastry o wysokim stopniu podobieństwa
+-        **average-link**: średnia z odległości
+-        **max-link**: maximum z odległości: luźno powiązane klastry
+
+Agregacja hierarchiczna klastrów- algorytm
+?
+Wejście: zbiór przykładów bez etykiet
+1)     dla n przykładów stwórz n klastrów, po jednym przykładzie każdy
+2)     znajdź parę klastrów dla których odległość jest najmniejsza
+3)     połącz te klastry
+4)     **if** kryterium stopu **then** zakończ **else** powtórz od kroku 2
+![[Pasted image 20240702113824.png]]
+![[Pasted image 20240702113832.png]]
+
+
