@@ -48,3 +48,26 @@ Rekordy z 4.0 niestety mają niejednoznaczną odpowiedź, więc trzeba dalej bud
 
 Tym razem analizujemy tylko rekordy, które nie odpadły, czyli te gdzie Matma ma 4.0.  
 Znów obliczamy przyrost informacji, bierzemy kolejny węzeł itd itd.
+
+### 1. Architektura Koder-Dekoder
+
+- **Model składa się z dwóch części**: kodera i dekodera.
+- **Koder**: Przetwarza całe wejście (np. zdanie) i tworzy zestaw stanów ukrytych dla wszystkich kroków czasowych (tokenów) jednocześnie. Te stany ukryte zawierają zakodowaną informację o całej sekwencji wejściowej.
+- **Dekoder**: Generuje wyjście, używając stanów ukrytych stworzonych przez koder. Dekoder może korzystać ze wszystkich stanów ukrytych, aby zrozumieć kontekst i generować odpowiednie wyjście. Jest to szczególnie przydatne w zadaniach, takich jak tłumaczenie języka, gdzie cała sekwencja musi być zrozumiana i przekształcona w nową sekwencję.
+
+### 2. Architektura Tylko Dekoder
+
+- **Model zawiera tylko dekoder**: Nie ma oddzielnego kodera.
+- **Autoregresyjny**: Generuje kolejne tokeny sekwencyjnie, używając wcześniej przetworzonych tokenów. Każdy nowy token jest generowany na podstawie wszystkich poprzednich tokenów w sekwencji.
+- **Samouwaga**: Dekoder korzysta z mechanizmu samouwagi, który pozwala mu zwracać uwagę na różne części wcześniej przetworzonych danych wejściowych podczas generowania kolejnych tokenów.
+- **Jednokierunkowy**: Przetwarza sekwencję od lewej do prawej, biorąc pod uwagę tylko tokeny, które są przed danym tokenem. To oznacza, że każdy token jest generowany na podstawie informacji dostępnej wcześniej w sekwencji.
+
+Podsumowując:
+
+1. **Architektura Koder-Dekoder**: Koder koduje całe wejście jednocześnie do stanów ukrytych, a dekoder generuje wyjście, używając tych stanów ukrytych.
+2. **Architektura Tylko Dekoder**: Model jest autoregresyjny, generuje kolejne tokeny sekwencyjnie na podstawie wcześniej przetworzonych tokenów, i korzysta z samouwagi do przetwarzania kontekstu.
+
+#### Prefix Decoder:
+
+- **Dekoder**: Nie ma oddzielnego enkodera. Zamiast tego, na początku procesu, przetwarza prefiks (np. "Ala ma") jako wstępny kontekst.
+- **Generowanie**: Następnie model kontynuuje generowanie tekstu, korzystając z przetworzonego kontekstu początkowego.

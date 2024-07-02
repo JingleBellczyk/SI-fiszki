@@ -251,10 +251,10 @@ Funkcja heurystyczna(heurystyka)
 
 Strategie wykorzystujące heurystyki
 ?
-	●       Najlepszy pierwszy (best -first search)
-		o   wybierasz węzeł o najlepszej **wartości heurystyki,** tylko według niej.
-		o   Niekompletny i nieoptymalny
-	●       A*
+-  Najlepszy pierwszy (best -first search)
+	- wybierasz węzeł o najlepszej **wartości heurystyki,** tylko według niej.
+	-  Niekompletny i nieoptymalny
+-  A*
 		o   bierze pod uwagę **koszt ścieżki i wartość heurystyki**
 		o   Akceptowalny i optymalny.
 		o   Optymalny gdy
@@ -874,7 +874,7 @@ K-krotna walidacja krzyżowa (K-fold cross-validation)
 technika oceny modelu, polegająca na podziale danych na K równych części (folds).
 1. **Podział danych:** Dane są dzielone na K części.
 2. **Iteracyjne trenowanie i testowanie:** Model jest trenowany K razy, za każdym razem używając jednej części jako zestawu testowego, a pozostałych K-1 części jako zestawu treningowego.
-3. **Średnia wyników:** Wyniki z K iteracji są średnią, co daje końcową ocenę modelu.
+3. **Średnia wyników:** Wyniki z K iteracji są średnią, co daje końcową ocenę przez model.
 Dzielimy sobie nasze dane na 10 setów.
 Na początku ostatni testuje, reszta trenuje. Sprawdzamy jakie były wyniki i zapisujemy
 ![[Pasted image 20240702001550.png]]
@@ -896,8 +896,8 @@ Wnioskowanie (klasyfikacja)
 ?
 - określenie przynależności obiektu do klasy
 - Proces wyciągania logicznych wniosków z dostępnych informacji, danych lub przesłanek.
-Czyli mamy nauczone drzewo i bierzemy nasz obiekt testowy - człowiek.  
-Sprawdzamy jakie ma dochody (średnie), to wybieramy środkową strzałkę i lecimy dalej.  
+Czyli mamy nauczone drzewo i bierzemy nasz obiekt testowy - człowiek.
+Sprawdzamy jakie ma dochody (średnie), to wybieramy środkową strzałkę i lecimy dalej.
 Sprawdzamy czy student (tak), to wybieramy lewą strzałkę i mamy odpowiedź. Przejście po algorytmie jest banalnie proste, ale bardziej jajcarska w drzewach jest ich budowa.
 
 ### Proces budowy drzewa decyzyjnego
@@ -973,7 +973,7 @@ Przycinanie węzła (pruning) to(w drzewie decyzyjnym)
 
 Algorytm C 4.5
 ?
-●       Rozszerzenie algorytmu ID3 (Quinlan).
+●       Rozszerzenie algorytmu ID3.
 ●       Unikanie nadmiernego dopasowania do danych.
 ●       Obsługa atrybutów o wartościach ciągłych, np., temperatury.
 ●       Obsługa danych treningowych z brakującym wartościami atrybutów.
@@ -1255,9 +1255,8 @@ Zalety:
 -        liczba klastrów nie musi być wcześniej zdefiniowana
 
 
-klastry hierarchiczne
+klastry hierarchiczne - kryteria powiązań
 ?
-kryteria powiązań
 -        **single-link**: minimum z odległości: bardzo ciasne klastry o wysokim stopniu podobieństwa
 -        **average-link**: średnia z odległości
 -        **max-link**: maximum z odległości: luźno powiązane klastry
@@ -1329,6 +1328,9 @@ Chat GPT-3
 dostrajanie llm oparte na uczeniu ze wzmocnieniem
 ?
 ![[Pasted image 20240702123743.png]]
+1. Najpierw zbieramy zbiór danych demonstracyjnych, które są przykładami promptów napisanych przez ludzi i przesłanych do naszego API. Wykorzystujemy ten zbiór do trenowania naszych podstawowych modeli przy użyciu uczenia nadzorowanego.
+2. Następnie gromadzimy zbiór danych porównawczych, gdzie ludzie oznaczają różnice między wynikami naszego modelu a referencyjnym zestawem monitów API. Kolejnym krokiem jest trening modelu nagrody (RM) na tym zbiorze danych, który ma za zadanie przewidzieć, które wyjścia są preferowane przez naszych etykietujących.
+3. Na koniec używamy RM jako funkcji nagrody i optymalizujemy naszą politykę opartą na modelu GPT-3, aby maksymalizować tę nagrodę, korzystając z algorytmu PPO (Proximal Policy Optimization).
 
 **Pretraining (wstępne trenowanie)**:
 ?
@@ -1338,3 +1340,16 @@ dostrajanie llm oparte na uczeniu ze wzmocnieniem
 **FINE-TUNING(nastrajanie)**
 ?
 polega na dostosowaniu parametrów już wstępnie wytrenowanego modelu do nowego, zazwyczaj mniejszego, zbioru danych specyficznego dla danego zadania. Ten proces pozwala modelowi przenieść ogólną wiedzę, którą zdobył podczas wstępnego trenowania, do niuansów nowego zadania
+
+RLHF
+?
+Reinforcement Learning with Human Feedback (RLHF) to podejście w uczeniu maszynowym, które łączy techniki uczenia ze wzmocnieniem (reinforcement learning, RL) z informacjami zwrotnymi od ludzi. Głównym celem RLHF jest wykorzystanie ludzkiej wiedzy, doświadczenia lub ocen jako źródła sygnałów informacyjnych, które wspomagają proces uczenia się agenta.
+Istnieje kilka podejść do RLHF, w tym:
+1. **Preferencje użytkownika**: Ludzie mogą dostarczać informacje o preferencjach dotyczących różnych sekwencji działań lub wyników.
+2. **Oceny jakościowe**: Ludzie mogą oceniać jakość wyników lub strategii, co pozwala na poprawę działania agenta w przyszłości.
+3. **Korekta błędów**: Ludzie mogą korygować działania agenta, wskazując na błędy i sugerując lepsze rozwiązania.
+
+Halucynacje
+? 
+model nie ma pelnej informacji i zgaduje lub klamie
+
