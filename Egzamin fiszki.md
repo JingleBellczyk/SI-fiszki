@@ -985,4 +985,152 @@ iloraz przyrostu infromacji
 ?
 ![[Pasted image 20240702003449.png]]
 
+## 6. Klasyfikacja tekstów - naiwny Bayes
 
+
+Zadanie lasyfikacji tekstów
+?
+- Przypisanie dokumentów do predefiniowanego, skończonego zbioru kategorii.
+- Jeżeli użytkownik wskazał pewną liczbę dokumentów relewantnych (ważnych) i nierelewantnych (nieważnych), możemy zbudować probabilistyczny klasyfikator oparty na naiwnym klasyfikatorze bayesowskim:
+
+reguła bayesa
+?
+![[Pasted image 20240702093114.png]]
+
+Klasyfikacja dokumentów - Przykład
+?
+Przypisane etykiety do dokumentów lub stron WWW mogą być:
+-        tematami np. “finance”, "news>world>asia>business",
+
+Klasyfikacja dokumentów manualna
+?
+- stara
+- przez ludzi
+- dla małych problemów
+
+Automatyczna klasyfikacja dokumentów - sposoby
+?
+1. Systemy reguł pisanych ręcznie
+	- regex
+2. Funkcja oparta na **nadzorowanym** uczeniu
+	- k-nearest neighbours
+	- naiwny klasyfikatora Bayesa
+	- SVM - maszyna wektorów podpierających
+	- deep learning
+	- wymagają ręcznie anotowanych danych
+3. Mieszanka obu
+
+Metoda bayesowska do klasyfikacji
+?
+- Wykorzystanie prawdopodobieństw każdej kategorii bez informacji o poszczególnych obiektach.
+- Kategoryzacja produkuje (na podstawie faktów) dystrybucję prawdopodobieństwa dla możliwych kategorii mając opis poszczególnych obiektów.
+- ![[Pasted image 20240702093915.png]]
+
+założenie Bayesowskie P(cj)
+?
+P(cj) - prawdopodobieństwo klasy k, estymowane na podst.  częśtości klas cj w przykładach treningowych
+
+założenie Bayesowskie P(xi|cj)
+?
+Może być estymowane, tylko wtedy gdy bardzo, bardzo duża liczba przypadków treningowych jest dostępna.
+
+Założenie warunkowej niezależności Bayesa
+?
+poszczególne cechy (lub atrybuty) - np. słowa w dokumencie - Xi- są niezależne od siebie, pod warunkiem, że znamy klasę (kategorię) do której należy dany przykład.
+![[Pasted image 20240702095233.png]]
+
+Co się dzieje jeżeli nie widzieliśmy żadnych przypadków treningowych, w których pacjent miał grypę i nie miał bóli mięśni
+?
+Zerowe prawdopodobieństwa nigdy nie mogą być odrzucone!
+
+Wygładzenie(Smoothing)
+?
+- Wygładzenie to technika stosowana w uczeniu maszynowym, szczególnie w modelach probabilistycznych, aby poradzić sobie z problemem **niewystarczającej liczby danych lub z wartościami zerowymi w danych.
+- Wprowadza się ją poprzez dodanie pewnej wartości do liczników częstości wystąpień, aby uniknąć problemu zero-frequency (częstotliwości zerowej).
+![[Pasted image 20240702095856.png]]
+
+
+Stochastyczne modele językowe
+?
+Modelowanie prawdopodobieństwa generowania wyrażeń (każde słowo po kolei) Np., model unigramowy
+![[Pasted image 20240702100227.png]]
+![[Pasted image 20240702100137.png]]![[Pasted image 20240702100201.png]]
+
+
+Klasyfikacja tekstu z wykorzystaniem Naiwnego Klasyfikatora Bayesa - krok po kroku
+?
+Klasyfikacja tekstu – podstawy
+Model, który na podstawie tekstu określa, do której z klas należy dany dokumen
+1. **Atrybuty są pozycjami w tekście, wartości to słowa**:
+    - Każde słowo w tekście jest traktowane jako cecha (atrybut), a jego pozycja w tekście jako indeks tej cechy.
+2. **Model klasyfikacji tekstu**:
+    - Naiwny Klasyfikator Bayesa zakłada, że pozycje słów są niezależne od siebie, co oznacza, że prawdopodobieństwo wystąpienia słowa nie zależy od innych słów w tekście.
+    - Model używa tych samych parametrów dla każdej pozycji słowa w tekście, co prowadzi do modelu „bag of words” (czyli torba słów, gdzie kolejność słów nie ma znaczenia).
+- Uczenie modelu
+1. **Zbiór treningowy i słownik**:
+    - Z korpusu treningowego wyodrębniamy słownik (Vocabulary), czyli listę wszystkich słów występujących w dokumentach.
+2. **Obliczanie składowych prawdopodobieństw**:
+    - P(cj): Prawdopodobieństwo wystąpienia klasy cj:
+        - Obliczamy to jako stosunek liczby dokumentów przypisanych do klasy cj do całkowitej liczby dokumentów.
+    - P(xi∣cj): Prawdopodobieństwo wystąpienia słowa xi​ w klasie cj:
+        - Obliczamy to jako stosunek liczby wystąpień słowa xi w dokumentach klasy cj​ do całkowitej liczby słów w tej klasie, uwzględniając wygładzanie, aby uniknąć zerowych prawdopodobieństw.
+- Klasyfikacja nowych dokumentów
+1. **Przygotowanie danych**
+    - Dla nowego dokumentu identyfikujemy pozycje wszystkich słów, które znajdują się w słowniku wyodrębnionym podczas uczenia.
+2. **Obliczanie klasy dla dokumentu**
+    - Obliczamy prawdopodobieństwo, że dany dokument należy do każdej z możliwych klas cj
+    ![[Pasted image 20240702101244.png]]
+    - CNB​ to klasa, do której najprawdopodobniej należy dokument.
+    - Dla każdej klasy cj obliczamy iloczyn prawdopodobieństw P(xi∣cj) dla wszystkich słów xi w danym dokumencie oraz prawdopodobieństwo P(cj) dla tej klasy.
+    - Wybieramy klasę cjo największym obliczonym prawdopodobieństwie.
+
+niebezpieczeństwo niedomiaru(underflow)
+?
+- Mnożenie wielu prawdopodobieństw, z definicji pomiędzy 0 i 1, może spowodować niedomiar w obliczeniach zmiennoprzecinkowych
+- rozwiązanie sumowanie/mnożenie logarytmów p-stw
+- ![[Pasted image 20240702102234.png]]
+
+Modele do klasyfikacji dokumentów - wielowartościowy dwumianowy vs wielomianowy
+1. Wielowartościowy dwumianowy
+	1. słownik słów - wypełniony true/false jesli slowo wystapilo w dokumencie
+	2. dla tematu, wystapienie 1 slowa nie mowi nic o szansie wystapienia innych slow
+	- P(Xw=term|cj) - liczba dokumentów o temacie cj w ktorych wystepuje cj
+2. Wielomianowy
+	1. pozycje słow w dokumencie z przypisanymi wartosciami czyli slowami
+		1. np. poz7=nad
+	2. Dla tematu, wystąpienie słowa na pozycji, nie mowi nic o wystapieniu slow na innych pozycjach
+	- P(Xi=w|cj) = liczba razy, ile wystepuje slowo w we wszystkich dokumentach tematu cj
+	- lepszy
+
+
+
+Selekcja cech - cel
+?
+- umożliwienie użycia klasyfikatorów
+- redukcja czasu uczenia
+- poprawa generalizacji
+- eliminacja szumu
+- tylko na danych treningowych!! bo inaczej overfitting
+
+Sposoby na selekcję cech
+?
+1. Test chi-kwadrat
+	- czy jakaś zmienna zmienna kategoralna jest powiązana z inną
+2. Miara informacji wzajemnej(mutual information)
+	- jak dużo informacji wnosi wartość 1 zmiennej o wartości 2 zmiennej 
+3. Heurystycznie
+4. najczęstsze termy
+	- 90% jakości innych metod
+
+**Szumy** (maszynowe uczenie)
+?
+to elementy danych, które wprowadzają zakłócenia i nie reprezentują prawdziwych wzorców. Ich źródła:
+- błędy pomiaru
+- nieistotne cechy - wprowadzają zbędne info, które zakłócają uczenie
+
+Założenia NB - czemu  głupie(nieadekwatne)?
+?
+1. Warunkowa niezależność - gorączka w kontekscie np. choroba albo film
+2. Pozycyjna niezależność - np river bank i financial bank
+
+## 7. Case-based Reasoning & Unsupervised Learning
